@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#236b4a">
+  <title>دوائي | تذكير الأدوية</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="دوائي - الصفحة الرئيسية" onclick="showScreen('welcome');return false;">
+      <span class="brand-icon">✚</span><span>دوائي</span>
+    </a>
+    <span class="tagline">تذكير لطيف… واطمئنان أكبر</span>
+  </header>
+
+  <main class="app-shell">
+    <div class="progress" aria-label="خطوات التطبيق">
+      <span class="step active" id="step1">١. البداية</span>
+      <span class="step" id="step2">٢. البيانات</span>
+      <span class="step" id="step3">٣. الأدوية</span>
+    </div>
+
+    <section class="screen active" id="welcome">
+      <div class="hero-symbol" aria-hidden="true">✚</div>
+      <p class="eyebrow">صحتك تهمنا</p>
+      <h1>مرحبًا بك في <span>دوائي</span></h1>
+      <p class="intro">مساعد بسيط لتنظيم مواعيد الأدوية وتسجيل الجرعات اليومية، بتصميم واضح وسهل الاستخدام.</p>
+      <form id="loginForm" class="card">
+        <label for="patientName">اسم المستفيد</label>
+        <input id="patientName" name="patientName" autocomplete="name" placeholder="اكتب الاسم هنا" required>
+        <label for="loginEmail">البريد الإلكتروني</label>
+        <input id="loginEmail" name="loginEmail" type="email" autocomplete="email" placeholder="name@example.com" required>
+        <button class="primary full" type="submit">ابدأ إعداد التطبيق ←</button>
+      </form>
+      <p class="small-note">هذه نسخة تجريبية تحفظ البيانات على هذا الجهاز فقط، ولا تستخدم حسابًا حقيقيًا.</p>
+    </section>
+
+    <section class="screen" id="settings">
+      <div class="section-heading">
+        <div><p class="eyebrow">الخطوة الثانية</p><h1>بيانات التواصل</h1></div>
+        <span class="heading-icon">☎</span>
+      </div>
+      <p class="intro">أدخل بيانات المستفيد وجهة الاتصال للطوارئ والبريد المخصص للتقارير.</p>
+      <form id="settingsForm" class="card">
+        <label for="savedPatientName">اسم المستفيد</label>
+        <input id="savedPatientName" required placeholder="اسم المستفيد">
+        <label for="beneficiaryPhone">رقم المستفيد (اختياري)</label>
+        <input id="beneficiaryPhone" type="tel" inputmode="tel" placeholder="05xxxxxxxx">
+        <label for="emergencyPhone">رقم الطوارئ / جهة الاتصال</label>
+        <input id="emergencyPhone" type="tel" inputmode="tel" placeholder="أدخل الرقم مع مفتاح الدولة عند الحاجة" required>
+        <label for="reportEmail">البريد الإلكتروني لاستلام التقرير</label>
+        <input id="reportEmail" type="email" placeholder="name@example.com" required>
+        <div class="notice"><strong>تنبيه مهم:</strong> في هذه النسخة، لا يتم إجراء اتصال تلقائي ولا إرسال بريد تلقائي عند إغلاق الصفحة. سيظهر خيار الاتصال، ويمكن إنشاء رسالة التقرير من داخل التطبيق.</div>
+        <div class="button-row">
+          <button class="secondary" type="button" onclick="showScreen('welcome')">رجوع</button>
+          <button class="primary" type="submit">حفظ ومتابعة</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="screen" id="medicines">
+      <div class="section-heading">
+        <div><p class="eyebrow">الخطوة الثالثة</p><h1>جدول الأدوية</h1></div>
+        <span class="heading-icon">▦</span>
+      </div>
+      <p class="intro" id="greeting">أضف الأدوية ومواعيدها لتسهيل المتابعة اليومية.</p>
+      <form id="medicineForm" class="card">
+        <h2>إضافة دواء</h2>
+        <label for="medicineName">اسم الدواء</label>
+        <input id="medicineName" required placeholder="مثال: الدواء الصباحي">
+        <label for="medicineDose">الجرعة / التعليمات</label>
+        <input id="medicineDose" required placeholder="مثال: حسب وصف الطبيب">
+        <label for="medicineTime">وقت التذكير</label>
+        <input id="medicineTime" type="time" required>
+        <button class="primary full" type="submit">＋ إضافة إلى الجدول</button>
+      </form>
+
+      <div class="list-heading"><h2>أدوية اليوم</h2><span id="medicineCount" class="count">0</span></div>
+      <div id="medicineList" class="medicine-list">
+        <div class="empty-state">لم تتم إضافة أدوية بعد.</div>
+      </div>
+
+      <div class="card report-card">
+        <h2>التقرير اليومي</h2>
+        <p class="muted">أنشئ رسالة تحتوي على الأدوية وحالة الجرعات اليوم، ثم راجعها وأرسلها من تطبيق البريد.</p>
+        <button class="primary full" id="reportButton" type="button">✉ إنشاء تقرير بالبريد</button>
+        <button class="secondary full space-top" id="callButton" type="button">☎ الاتصال بجهة الطوارئ</button>
+        <button class="text-button full" id="notificationButton" type="button">تفعيل إشعارات المتصفح</button>
+      </div>
+      <div class="notice bottom-notice">للاستخدام الفعلي مع كبار السن، يجب أن يكون هناك مرافق يتابع التنبيهات. لا تعتمد على هذا النموذج وحده للحالات الطبية الطارئة.</div>
+      <button class="secondary full" type="button" onclick="showScreen('settings')">تعديل بيانات التواصل</button>
+    </section>
+  </main>
+
+  <footer>دوائي © <span id="year"></span> — نموذج أولي للتجربة</footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
